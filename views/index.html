@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
 
-			var CAPTURE_WIDTH = 100;
+			var CAPTURE_WIDTH = 480;
 			var CAPTURE_HEIGHT = CAPTURE_WIDTH * (3/4);
 			 
 			function handleVideo(stream) {
@@ -59,18 +59,25 @@
 
 				canvas.getContext('2d').drawImage(webcam, 0, 0, CAPTURE_WIDTH, CAPTURE_HEIGHT);
 
-				imageData = canvas.toDataURL("image/png");
+				imageData = canvas.toDataURL("image/jpeg");
 				// var justPngData = imageData.substr(imageData, imageData.strpos(imageData, ",")+1);
 
-				imageData = imageData.replace('data:image/png;base64,', '');
+				imageData = imageData.replace('data:image/jpeg;base64,', '');
 
 				// console.log(imageData);
 
                 // saveImage();
 
+                var fd = new FormData();    
+				fd.append('imgData', imageData);
+
+
                 $.ajax({
 				    url: '/saveimage',
 				    type: 'POST',
+				 //    processData: false,
+					// contentType: false,
+					// data: fd,
 				    data: {imgData: imageData},
 				    success: function (data) {
 				        console.log(data)
