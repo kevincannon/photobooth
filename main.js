@@ -29,13 +29,15 @@ app.use(express.static('views')); //assign static folder
 // Receive post request
 app.post('/saveimage', function(request,response) {
 
-	console.log("node received: " + request.body.imgData);
+	// console.log("node received: " + request.body.imgData);
+	console.log("node received image");
 
 	// console.log(util.inspect(req, false, null));
   	var buffer = new Buffer(request.body.imgData, 'base64');
   	fs.writeFile(SAVE_DIR + 'image_' + Date.now() + '.jpg', buffer);
 
-  	response.send("server received: " + request.body.imgData);
+  	// response.send("server received: " + request.body.imgData);
+  	response.send("server received image!");
 
 });
 
