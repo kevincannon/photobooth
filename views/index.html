@@ -47,7 +47,7 @@
 		}
 
 		#container {
-			border: 1px solid blue;
+			
 			width: 720px;
 			padding: 0;
 			margin: 0;
@@ -117,7 +117,7 @@
 
 			z-index: 100;
 
-			opacity: 0.2;
+			opacity: 0;
 		}
 
 
@@ -140,7 +140,7 @@
 			text-align: center;
 			color: white;
 
-			opacity: 0.2;
+			opacity: 0;
 		}
 
 	</style>
@@ -159,7 +159,7 @@
 			<h1>IsarWG3 Photobooth</h1>
 
 			
-			<button type="button" id="reload" onClick="document.location.reload(true)">Re</button>
+			<!-- <button type="button" id="reload" onClick="document.location.reload(true)">Re</button> -->
 
 		</div>
 
@@ -201,7 +201,7 @@
 			var CAPTURE_HEIGHT = 480;
 			var CAPTURE_SCALE = 1;
 
-			var FAKE_CAM = true;
+			var FAKE_CAM = false;
 
 			 
 			function handleVideo(stream) {

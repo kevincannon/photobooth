@@ -20,10 +20,39 @@
 			background-color: #000;
 
 			font-family: Helvetica, sans-serif;
+
 		}
 
-		img {
-			border: 1px solid red;
+		div.big {
+			/*border: 1px solid red;*/
+
+			-webkit-background-size: cover;
+			background-size: cover;
+			background-position:  center center;
+			background-attachment: fixed; 
+
+
+			min-height: 100%;
+			/* Set up proportionate scaling */
+			width: 100%;
+			height: auto;
+
+
+			transition: background-image 1s ease-in-out;
+
+
+			/* Set up positioning */
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+		div.visible {
+			opacity: 1;
+		}
+
+		div	.hidden {
+			opacity: 0;
 		}
 
 	</style>
@@ -38,11 +67,15 @@
 
 <body>
 
-	<img id="image1" src="" height="100" width="100" />
+	<div class="big visible" id="image1" src=""> </div>
+
 	<!-- <img id="image2" /> -->
- 
 
     <script>
+
+    	var IMAGE_TIMING = 5000;
+
+
 		var onLoadList = [];
 		var shownList = [];
 		var queuedList = [];
@@ -60,11 +93,16 @@
 		    showNextImage();	// start
 		});
 
+
+
+
+
+		
+
 		function showNextImage() {
 			var targetImage;
 
 			
-
 			// Load from queue or full list?
 			if (queuedList.length >= 1) {
 				targetImage = queuedList.pop();
@@ -78,9 +116,10 @@
 
 			console.log("showNextImage: " + queuedList.length + "/" + shownList.length + ":" + targetImage);
 
-			$("#image1").attr("src", targetImage);
+			$("#image1").css('background-image', 'url(' + targetImage + ')');
+			// attr("src", targetImage);
 
-			setTimeout(showNextImage, 500)
+			setTimeout(showNextImage, IMAGE_TIMING);
 		}
 
 
