@@ -42,14 +42,18 @@ app.use(express.static('views')); //assign static folder
 app.post('/saveimage', function(request,response) {
 
 	// console.log("node received: " + request.body.imgData);
-	console.log("node received image");
+	console.log("Server received image");
 
 	// console.log(util.inspect(req, false, null));
   	var buffer = new Buffer(request.body.imgData, 'base64');
-  	fs.writeFile(SAVE_PATH + SAVE_DIR + 'image_' + Date.now() + '.jpg', buffer);
+    var fileName  = SAVE_DIR + 'image_' + Date.now() + '.jpg'
+  	fs.writeFile(SAVE_PATH + fileName, buffer);
 
   	// response.send("server received: " + request.body.imgData);
-  	response.send("server received image!");
+  	response.send("Server received image!");
+
+
+    io.sockets.emit('queueImage', fileName);
 
 });
 
@@ -89,7 +93,7 @@ io.listen(server);
 
 
 io.on('connection', function(socket){
-  console.log('A client connected. Send current imag elist');
+  console.log('A client connected. Send current image list');
 
   socket.emit('fullList', listAllImages().toString() );
   // console.log( listAllImages().toString() );

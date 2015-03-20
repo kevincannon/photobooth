@@ -93,6 +93,13 @@
 		    showNextImage();	// start
 		});
 
+		socket.on('queueImage', function(data){
+
+		    
+		    
+		    queueImage(data);
+		});
+
 
 
 
@@ -108,13 +115,13 @@
 				targetImage = queuedList.pop();
 				shownList.push(targetImage);
 
-				console.log("targetImage: " + targetImage);
+				// console.log("targetImage: " + targetImage);
 			} else {
 				targetImage = shownList[randomBetween(0, shownList.length-1)];
-				console.log("targetImage: " + targetImage);
+				// console.log("targetImage: " + targetImage);
 			}
 
-			console.log("showNextImage: " + queuedList.length + "/" + shownList.length + ":" + targetImage);
+			// console.log("showNextImage: " + queuedList.length + "/" + shownList.length + ":" + targetImage);
 
 			$("#image1").css('background-image', 'url(' + targetImage + ')');
 			// attr("src", targetImage);
@@ -123,7 +130,14 @@
 		}
 
 
-		function queueImage() {
+		function queueImage(fileName) {
+			console.log("queuingImage > " + fileName);
+
+			//
+			setTimeout(function() { 
+				console.log("Image added to queue: " + fileName);
+				queuedList.push("/" + fileName);
+			}, 10000 );
 		
 		}
 
@@ -134,6 +148,6 @@
 		}
 
     </script>
-    <div>This is our socket.html file</div>
+
   </body>
 </html>

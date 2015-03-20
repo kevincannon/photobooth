@@ -79,13 +79,16 @@
 
 		#photo {
 			border: 5px solid black;
-			min-height: 480px;
-			min-width: 360px;
+			height: 480px;
+			width: 360px;
 			position: relative;
 		}
 
 		#webcam {
 			position: absolute;
+
+			height: 480px;
+			width: 360px;
 
 			z-index: 10;
 
@@ -94,6 +97,10 @@
 
 		#webcam-snapshot {
 			position: absolute;
+			
+			height: 480px;
+			width: 360px;
+
 			/*top: 5px;
 			left: 5px;*/
 			/*opacity: 0;*/
@@ -159,7 +166,7 @@
 			<h1>IsarWG3 Photobooth</h1>
 
 			
-			<!-- <button type="button" id="reload" onClick="document.location.reload(true)">Re</button> -->
+			<button type="button" id="reload" onClick="document.location.reload(true)">Re</button>
 
 		</div>
 
@@ -230,8 +237,16 @@
             }
 
             function takePhoto() {
+				console.log("takePhoto");     
 
-                console.log("take photo");
+				startCountdown();
+
+				setTimeout(savePhoto, 4000);       	
+            }
+
+            function savePhoto() {
+
+                console.log("savePhoto");
 
 
 				canvas.getContext('2d').drawImage(webcam, 0, 0, CAPTURE_WIDTH, CAPTURE_HEIGHT);
@@ -259,8 +274,17 @@
 				    	}
 					})
 
+                $("#tint").transition({ opacity: 1, duration: 200, delay: 0 });
+				$("#tint").transition({ opacity: 0, duration: 1000, delay: 500 });
+
+				$("#webcam-snapshot").transition({ opacity: 1, duration: 500, delay: 0 });
+				$("#webcam-snapshot").transition({ opacity: 0, duration: 2000, delay: 1000 });
+
+             }
+
+            function startCountdown() {
+
                 // animate new photo
-                // $("#webcam-snapshot").animate({
 				
 				// Countdown
 				$("#three").transition({ opacity: 1, duration: 200 });
@@ -272,12 +296,10 @@
 				$("#one").transition({ opacity: 1, duration: 200, delay: 2000 });
 				$("#one").transition({ opacity: 0, duration: 1000, delay: 500 });// Flash
 
+            }
 
-				$("#tint").transition({ opacity: 1, duration: 200, delay: 3000 });
-				$("#tint").transition({ opacity: 0, duration: 1000, delay: 500 });
 
-				$("#webcam-snapshot").transition({ opacity: 1, duration: 500, delay: 3000 });
-				$("#webcam-snapshot").transition({ opacity: 0, duration: 2000, delay: 3000 });
+            function doAjaxSave() {
 
             }
 
@@ -297,7 +319,10 @@
 		            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 		 
 					if (navigator.getUserMedia) {      
-					    navigator.getUserMedia({video: true}, handleVideo, videoError);
+					    navigator.getUserMedia(
+					    	{video: true}, 
+					    	handleVideo, 
+					    	videoError);
 					}
 				
 				}
