@@ -47,7 +47,7 @@ app.post('/saveimage', function(request,response) {
 	// console.log(util.inspect(req, false, null));
   	var buffer = new Buffer(request.body.imgData, 'base64');
     var fileName  = SAVE_DIR + 'image_' + Date.now() + '.jpg'
-  	fs.writeFile(SAVE_PATH + fileName, buffer);
+  	fs.writeFileSync(SAVE_PATH + fileName, buffer);
 
   	// response.send("server received: " + request.body.imgData);
   	response.send("Server received image!");
