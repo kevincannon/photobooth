@@ -9,7 +9,7 @@
 	<meta name="viewport" content="initial-scale=1, user-scalable=no">
     <link rel="icon" sizes="192x192" href="img/icon-192.png">
 
-    
+
 
 	<style type="text/css">
 
@@ -26,10 +26,14 @@
 		div.big {
 			/*border: 1px solid red;*/
 
-			-webkit-background-size: cover;
-			background-size: cover;
+			/*-webkit-background-size: cover;*/
+			background-size: contain;
+			-webkit-background-size: contain;
+
+
 			background-position:  center center;
-			background-attachment: fixed; 
+			background-attachment: fixed;
+			background-repeat: no-repeat;
 
 
 			min-height: 100%;
@@ -95,8 +99,8 @@
 
 		socket.on('queueImage', function(data){
 
-		    
-		    
+
+
 		    queueImage(data);
 		});
 
@@ -104,12 +108,12 @@
 
 
 
-		
+
 
 		function showNextImage() {
 			var targetImage;
 
-			
+
 			// Load from queue or full list?
 			if (queuedList.length >= 1) {
 				targetImage = queuedList.pop();
@@ -134,11 +138,11 @@
 			console.log("queuingImage > " + fileName);
 
 			//
-			setTimeout(function() { 
+			setTimeout(function() {
 				console.log("Image added to queue: " + fileName);
 				queuedList.push("/" + fileName);
 			}, 10000 );
-		
+
 		}
 
 
