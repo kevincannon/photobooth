@@ -7,9 +7,7 @@
 	<!-- web app stuff -->
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="viewport" content="initial-scale=1, user-scalable=no">
-    <link rel="icon" sizes="192x192" href="img/icon-192.png">
-
-
+  <link rel="icon" sizes="192x192" href="img/icon-192.png">
 
 	<style type="text/css">
 
@@ -24,12 +22,9 @@
 		}
 
 		div.big {
-			/*border: 1px solid red;*/
 
-			/*-webkit-background-size: cover;*/
 			background-size: contain;
 			-webkit-background-size: contain;
-
 
 			background-position:  center center;
 			background-attachment: fixed;
@@ -41,9 +36,7 @@
 			width: 100%;
 			height: auto;
 
-
 			transition: background-image 1s ease-in-out;
-
 
 			/* Set up positioning */
 			position: fixed;
@@ -73,11 +66,9 @@
 
 	<div class="big visible" id="image1" src=""> </div>
 
-	<!-- <img id="image2" /> -->
-
     <script>
 
-    	var IMAGE_TIMING = 5000;
+		var IMAGE_TIMING = 5000;
 
 
 		var onLoadList = [];
@@ -87,21 +78,21 @@
 
 		var socket = io.connect();
 		socket.on('fullList', function(data){
-		    // console.log("fullList > ");
-		    onLoadList = data.split(",");
-		    // data.console.log(data);
-		    console.log(onLoadList);
+		  // console.log("fullList > ");
+		  onLoadList = data.split(",");
+		  // data.console.log(data);
+		  console.log(onLoadList);
 
 
-		    queuedList = onLoadList.slice(); // copy array
-		    showNextImage();	// start
+		  queuedList = onLoadList.slice(); // copy array
+		  showNextImage();	// start
 		});
 
 		socket.on('queueImage', function(data){
 
 
 
-		    queueImage(data);
+		  queueImage(data);
 		});
 
 
@@ -111,44 +102,44 @@
 
 
 		function showNextImage() {
-			var targetImage;
+		var targetImage;
 
 
-			// Load from queue or full list?
-			if (queuedList.length >= 1) {
-				targetImage = queuedList.pop();
-				shownList.push(targetImage);
+		// Load from queue or full list?
+		if (queuedList.length >= 1) {
+			targetImage = queuedList.pop();
+			shownList.push(targetImage);
 
-				// console.log("targetImage: " + targetImage);
-			} else {
-				targetImage = shownList[randomBetween(0, shownList.length-1)];
-				// console.log("targetImage: " + targetImage);
-			}
+			// console.log("targetImage: " + targetImage);
+		} else {
+			targetImage = shownList[randomBetween(0, shownList.length-1)];
+			// console.log("targetImage: " + targetImage);
+		}
 
-			// console.log("showNextImage: " + queuedList.length + "/" + shownList.length + ":" + targetImage);
+		// console.log("showNextImage: " + queuedList.length + "/" + shownList.length + ":" + targetImage);
 
-			$("#image1").css('background-image', 'url(' + targetImage + ')');
-			// attr("src", targetImage);
+		$("#image1").css('background-image', 'url(' + targetImage + ')');
+		// attr("src", targetImage);
 
-			setTimeout(showNextImage, IMAGE_TIMING);
+		setTimeout(showNextImage, IMAGE_TIMING);
 		}
 
 
 		function queueImage(fileName) {
-			console.log("queuingImage > " + fileName);
+		console.log("queuingImage > " + fileName);
 
-			//
-			setTimeout(function() {
-				console.log("Image added to queue: " + fileName);
-				queuedList.push("/" + fileName);
-			}, 10000 );
+		//
+		setTimeout(function() {
+			console.log("Image added to queue: " + fileName);
+			queuedList.push("/" + fileName);
+		}, 10000 );
 
 		}
 
 
 		function randomBetween(min,max)
 		{
-		    return Math.floor(Math.random()*(max-min+1)+min);
+		  return Math.floor(Math.random()*(max-min+1)+min);
 		}
 
     </script>
