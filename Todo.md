@@ -4,3 +4,4 @@
 * [ ] Saved file name - time stamping
 * [ ] Client: Fix time it takes the photo at the end of countdown - prevent multiple presses
 * [ ] Bug: Crashes if viewer viewed and no 'saved_images' folder
+* [ ] Images are reversed in the photo taker
